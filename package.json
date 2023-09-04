@@ -1,0 +1,24 @@
+{
+  "name": "rinha",
+  "module": "src/index.ts",
+  "scripts": {
+    "generate": "drizzle-kit generate:pg",
+    "push": "drizzle-kit push:pg",
+    "start": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "drizzle-kit": "^0.19.13",
+    "drizzle-orm": "^0.28.5",
+    "drizzle-typebox": "^0.1.1",
+    "elysia": "^0.6.16",
+    "postgres": "^3.3.5",
+    "redis": "^4.6.8"
+  },
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
