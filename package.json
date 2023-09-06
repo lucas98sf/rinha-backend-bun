@@ -14,8 +14,7 @@
     "drizzle-orm": "^0.28.5",
     "drizzle-typebox": "^0.1.1",
     "elysia": "^0.6.16",
-    "postgres": "^3.3.5",
-    "redis": "^4.6.8"
+    "postgres": "^3.3.5"
   },
   "type": "module",
   "devDependencies": {

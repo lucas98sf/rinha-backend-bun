@@ -1,7 +1,6 @@
 import { Elysia, t } from 'elysia';
 import { createInsertSchema } from 'drizzle-typebox';
 import postgres from 'postgres';
-// import { createClient } from 'redis';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { eq, ilike, sql } from 'drizzle-orm';
 import { pessoas } from './schema';
@@ -18,11 +17,6 @@ const pg = postgres(
   },
 );
 const db = drizzle(pg);
-// const redis = createClient({
-//   url: process.env.NODE_ENV === 'production' ? 'redis://redis:6379' : 'redis://localhost:6379',
-// });
-// await redis.connect();
-
 const pessoaInsertSchema = createInsertSchema(pessoas, {
   apelido: t.String({ maxLength: 32 }),
   nome: t.String({ maxLength: 100 }),
@@ -40,8 +34,6 @@ app
           set.status = 422;
           return;
         }
-        // redis.sAdd(`pessoas:nicknames:${pessoa.apelido}`, pessoa.apelido);
-        // redis.setEx(`pessoas:ids:${pessoa.id}`, 5, JSON.stringify(pessoa));
         set.status = 201;
         set.headers = { location: `/pessoas/${pessoa.id}` };
       } catch (err) {
@@ -57,14 +49,8 @@ app
     '/pessoas/:id',
     async ({ params, set }) => {
       try {
-        // const cachedPessoa = await redis.getEx(`pessoas:ids:${params.id}`, { EX: 5 });
-        // if (cachedPessoa) {
-        //   return cachedPessoa;
-        // }
-
         const [pessoa] = await db.select().from(pessoas).where(eq(pessoas.id, params.id)).execute();
         if (pessoa) {
-          //   redis.setEx(`pessoas:ids:${pessoa.id}`, 5, JSON.stringify(pessoa));
           return pessoa;
         }
 
@@ -83,10 +69,6 @@ app
           set.status = 400;
           return;
         }
-        // const cachedPessoas = await redis.getEx(`pessoas:query:${query.t}`, { EX: 5 });
-        // if (cachedPessoas) {
-        //   return cachedPessoas;
-        // }
 
         const pessoasFound = await db
           .select()
@@ -94,10 +76,7 @@ app
           .where(ilike(pessoas.searchable, `%${query.t}%`))
           .limit(50)
           .execute();
-        // if (pessoasFound.length) {
-        // redis.setEx(`pessoas:query:${query.t}`, 5, JSON.stringify(pessoasFound));
         return pessoasFound;
-        // }
       } catch (err) {
         set.status = 500;
       }
