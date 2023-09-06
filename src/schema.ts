@@ -1,9 +1,10 @@
-import { pgTable, uuid, varchar, json } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, json, date, varchar } from 'drizzle-orm/pg-core';
 
 export const pessoas = pgTable('pessoas', {
   id: uuid('id').primaryKey().defaultRandom(),
-  apelido: varchar('apelido', { length: 32 }).notNull().unique(),
-  nome: varchar('nome', { length: 100 }).notNull(),
+  apelido: text('apelido').notNull().unique(),
+  nome: text('nome').notNull(),
   nascimento: varchar('nascimento', { length: 10 }).notNull(),
   stack: json('stack').$type<string[] | null>(),
+  searchable: text('searchable'),
 });

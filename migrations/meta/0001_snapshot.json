@@ -1,8 +1,8 @@
 {
+  "id": "58c93843-eba3-46c6-965f-150e5439f00b",
+  "prevId": "dcbcda99-566f-4c94-b5c6-b8cd18e90592",
   "version": "5",
   "dialect": "pg",
-  "id": "dcbcda99-566f-4c94-b5c6-b8cd18e90592",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "pessoas": {
       "name": "pessoas",
@@ -52,10 +52,10 @@
       "uniqueConstraints": {
         "pessoas_apelido_unique": {
           "name": "pessoas_apelido_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "apelido"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
@@ -63,8 +63,8 @@
   "enums": {},
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   }
 }
